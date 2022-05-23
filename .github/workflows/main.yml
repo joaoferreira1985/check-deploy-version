@@ -15,9 +15,6 @@ jobs:
         with:
           url: 'https://onxy-717-createendpoits.onyx.amun.com/version'
           responseCode: 200
-          gitHash: ${{ github.sha }}
+          gitHash: '1baf33176c15bde14f903e31f6bc584687a476b4'
           timeout: 200000 # 200 seconds
           interval: 5000 # 5 seconds interval
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
