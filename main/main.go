@@ -8,7 +8,14 @@ import (
 	"os"
 	"strings"
 	"time"
+	"encoding/json"
 )
+
+
+type Response struct {
+	VersionHash string `json:"Version hash"`
+	BuildDate   string `json:"Build date"`
+}
 
 func main() {
 	var url = flag.String("url", "http://localhost/", "URL to poll")
@@ -31,9 +38,15 @@ func main() {
 	for {
 		res, err := http.Get(*url)
 
-		 defer res.Body.Close()
-         body, err := ioutil.ReadAll(res.Body) // response body is []byte
+
+        body, err := ioutil.ReadAll(res.Body) // response body is []byte
          fmt.Println(string(body))
+         // snippet only
+         var result Response
+         if err := json.Unmarshal(body, &res); err != nil {   // Parse []byte to go struct pointer
+             fmt.Println("Can not unmarshal JSON")
+         }
+         fmt.Printf("Hash: %s, Data: %s", result.VersionHash, result.BuildDate)
 
 		if err == nil && res.StatusCode == *responseCode {
 			fmt.Printf("Response header: %v", res)
@@ -46,4 +59,9 @@ func main() {
 			os.Exit(1)
 		}
 	}
+}
+// PrettyPrint to print struct in a readable way
+func PrettyPrint(i interface{}) string {
+    s, _ := json.MarshalIndent(i, "", "\t")
+    return string(s)
 }

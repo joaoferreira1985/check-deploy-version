@@ -15,6 +15,7 @@ jobs:
         with:
           url: 'https://onxy-717-createendpoits.onyx.amun.com/version'
           responseCode: 200
+          gitHash: asdasdasd
           timeout: 2000
           interval: 500
       # Use the output from the `hello` step
