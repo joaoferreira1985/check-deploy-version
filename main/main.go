@@ -48,7 +48,7 @@ func main() {
          }
          //fmt.Printf("Hash: %s, Data: %s", result.VersionHash, result.BuildDate)
 
-        fmt.Printf("Version Hash on the request : %s, Version Hash on build : %s", result.VersionHash, gitHash)
+        fmt.Printf("Version Hash on the request : %s, Version Hash on build : %s", result.VersionHash, *gitHash)
 
 
 		if err == nil && res.StatusCode == *responseCode &&  result.VersionHash == *gitHash {
