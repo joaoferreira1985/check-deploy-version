@@ -43,7 +43,7 @@ func main() {
          fmt.Println(string(body))
          // snippet only
          var result Response
-         if err := json.Unmarshal(body, &res); err != nil {   // Parse []byte to go struct pointer
+         if err := json.Unmarshal(body, &result); err != nil {   // Parse []byte to go struct pointer
              fmt.Println("Can not unmarshal JSON")
          }
          fmt.Printf("Hash: %s, Data: %s", result.VersionHash, result.BuildDate)
