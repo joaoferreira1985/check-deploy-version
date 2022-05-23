@@ -46,7 +46,10 @@ func main() {
          if err := json.Unmarshal(body, &result); err != nil {   // Parse []byte to go struct pointer
              fmt.Println("Can not unmarshal JSON")
          }
-         fmt.Printf("Hash: %s, Data: %s", result.VersionHash, result.BuildDate)
+         //fmt.Printf("Hash: %s, Data: %s", result.VersionHash, result.BuildDate)
+
+        fmt.Printf("Version Hash on the request : %s, Version Hash on build : %s", result.VersionHash, gitHash)
+
 
 		if err == nil && res.StatusCode == *responseCode &&  result.VersionHash == *gitHash {
 			fmt.Printf("Response header: %v", res)
