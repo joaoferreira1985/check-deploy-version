@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"io/ioutil"
 	"os"
 	"strings"
 	"time"
@@ -30,8 +31,8 @@ func main() {
 	for {
 		res, err := http.Get(*url)
 
-		 defer resp.Body.Close()
-         body, err := ioutil.ReadAll(resp.Body) // response body is []byte
+		 defer res.Body.Close()
+         body, err := ioutil.ReadAll(res.Body) // response body is []byte
          fmt.Println(string(body))
 
 		if err == nil && res.StatusCode == *responseCode {
