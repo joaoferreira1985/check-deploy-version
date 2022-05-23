@@ -3,17 +3,20 @@ on: [push]
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Check Deployed Version
     steps:
       # To use this repository's private action,
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Hello world action step
+      - name: Check deploy version  action step
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          who-to-greet: 'Mona the Octocat'
+          url: 'https://onxy-717-createendpoits.onyx.amun.com/version'
+          responseCode: 200
+          timeout: 2000
+          interval: 500
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
