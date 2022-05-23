@@ -15,9 +15,11 @@ func main() {
 	var timeout = flag.Int("timeout", 2000, "Timeout before giving up in ms")
 	var interval = flag.Int("interval", 200, "Interval between polling in ms")
 	var localhost = flag.String("localhost", "", "Ip address to use for localhost")
+	var gitHash = flag.String("gitHash", "", "githash for build")
+
 	flag.Parse()
 
-	fmt.Printf("Polling URL `%s` for response code %d for up to %d ms at %d ms intervals\n", *url, *responseCode, *timeout, *interval)
+	fmt.Printf("Polling URL `%s` Git hash `%s` for response code %d for up to %d ms at %d ms intervals\n", *url, *gitHash ,*responseCode, *timeout, *interval)
 	startTime := time.Now()
 	timeoutDuration := time.Duration(*timeout) * time.Millisecond
 	sleepDuration := time.Duration(*interval) * time.Millisecond
@@ -26,7 +28,12 @@ func main() {
 		*url = strings.ReplaceAll(*url, "localhost", *localhost)
 	}
 	for {
-		res, err := http.Head(*url)
+		res, err := http.Get(*url)
+
+		 defer resp.Body.Close()
+         body, err := ioutil.ReadAll(resp.Body) // response body is []byte
+         fmt.Println(string(body))
+
 		if err == nil && res.StatusCode == *responseCode {
 			fmt.Printf("Response header: %v", res)
 			os.Exit(0)
