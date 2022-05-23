@@ -48,7 +48,7 @@ func main() {
          }
          fmt.Printf("Hash: %s, Data: %s", result.VersionHash, result.BuildDate)
 
-		if err == nil && res.StatusCode == *responseCode {
+		if err == nil && res.StatusCode == *responseCode &&  result.VersionHash == *gitHash {
 			fmt.Printf("Response header: %v", res)
 			os.Exit(0)
 		}
