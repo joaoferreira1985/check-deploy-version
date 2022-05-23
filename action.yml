@@ -1,16 +1,35 @@
 # action.yml
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Wait For Response'
+author: 'Justin Knight'
+branding:
+  icon: 'clock'
+  color: 'blue'
+description: 'Wait for response code from a URL with timeout'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
+  url:
+    description: 'URL to poll'
+    required: false
+    default: 'http://localhost/'
+  responseCode:
+    description: 'Response code to wait for'
+    required: false
+    default: '200'
+  timeout:
+    description: 'Timeout before giving up in ms'
+    required: false
+    default: '30000'
+  interval:
+    description: 'Interval between polling in ms'
+    required: false
+    default: 200
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  result:
+    description: '0 if response code returned within timeout, otherwise 1'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.url }}
+    - ${{ inputs.responseCode }}
+    - ${{ inputs.timeout }}
+    - ${{ inputs.interval }}
