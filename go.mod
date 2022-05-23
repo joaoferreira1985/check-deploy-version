@@ -1,3 +1,3 @@
-module github.com/nev7n/wait_for_response
+module github.com/joaoferreira1985/check-deploy-version
 
 go 1.13
